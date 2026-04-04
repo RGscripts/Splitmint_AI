@@ -32,7 +32,6 @@ SplitMint AI is a full-stack expense splitting application built for shared spen
 
 ## Project Structure
 
-```bash
 Splitmint_AI/
 ├── backend/
 │   ├── controllers/
@@ -99,11 +98,6 @@ Use MintSense AI for optional expense parsing and insights
 Notes
 Environment files are excluded from version control using .gitignore
 This project was built as part of an engineering internship challenge
-Author
-Rishabh Gupta
 
-
-
-If you want, I can also give you a slightly better polished version with badges and screenshots section, still simple and professional.
 
 

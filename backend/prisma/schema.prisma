@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  groups    Group[]
+}
+
+model Group {
+  id           String        @id @default(uuid())
+  name         String
+  createdBy    String
+  user         User          @relation(fields: [createdBy], references: [id])
+  participants Participant[]
+  expenses     Expense[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Participant {
+  id           String         @id @default(uuid())
+  name         String
+  color        String         @default("#6366f1")
+  avatar       String?
+  isPrimary    Boolean        @default(false)
+  groupId      String
+  group        Group          @relation(fields: [groupId], references: [id])
+  expensesPaid Expense[]      @relation("Payer")
+  splits       ExpenseSplit[]
+  createdAt    DateTime       @default(now())
+}
+
+model Expense {
+  id          String         @id @default(uuid())
+  amount      Float
+  description String
+  date        DateTime
+  category    String         @default("Misc")
+  payerId     String
+  groupId     String
+  payer       Participant    @relation("Payer", fields: [payerId], references: [id])
+  group       Group          @relation(fields: [groupId], references: [id])
+  splits      ExpenseSplit[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ExpenseSplit {
+  id            String      @id @default(uuid())
+  expenseId     String
+  participantId String
+  shareAmount   Float
+  expense       Expense     @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  participant   Participant @relation(fields: [participantId], references: [id])
+}

@@ -18,7 +18,7 @@ SplitMint AI is a full-stack expense splitting application built for shared spen
 - Optional AI-based expense parsing and summaries
 
 ## Tech Stack
-
+```bash
 ### Frontend
 - Next.js
 - React
@@ -46,6 +46,7 @@ Splitmint_AI/
 │   └── styles/
 └── README.md
 
+ ```
 Setup Instructions
 1. Clone the repository
 bash
